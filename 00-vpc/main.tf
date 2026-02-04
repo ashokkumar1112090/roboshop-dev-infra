@@ -2,7 +2,7 @@
 module "vpc" {
     # source = "../terraform-aws-vpc"
     source = "git::https://github.com/ashokkumar1112090/terraform-aws-vpc.git"
-    vpc_cidr = var.vpc_cid
+    vpc_cidr = var.vpc_cidr
     project_name = var.project_name
     environment = var.environment #varab.tf in terr-aws-folder..we declared these are 
     vpc_tags = var.vpc_tags      
