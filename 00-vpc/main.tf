@@ -15,4 +15,4 @@ module "vpc" {
 
 # data "aws_availability_zones" "available" {
 #   state = "available"
-# }                                     for testing i used 
+# }                                     for testing i used so commented
