@@ -9,7 +9,7 @@ terraform {
 
   backend "s3" {
     bucket = "remote-state-86s-dev-ashok"
-    key    = "roboshop-dev-sg"
+    key    = "roboshop-dev-bastion"   #if not given it creates default name or empty
     region = "us-east-1"
     use_lockfile = true
     encrypt = true
