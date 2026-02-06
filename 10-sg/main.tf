@@ -17,3 +17,16 @@ module "sg" {
   vpc_id = local.vpc_id
 
 }
+
+
+#Frontend accepting traffic from frontend alb
+/* resource "aws_security_group_rule" "frontend_frontend_alb" {
+  type = "ingress"
+  security_group_id = module.sg[9].sg_id   #FE SG  Id
+  source_security_group_id = module.sg[11].sg_id  #FE ALB SG ID
+  #cidr_ipv4         = aws_vpc.main.cidr_block  #if we give cidr we have to give ip add so
+  from_port         = 80
+  protocol       = "tcp"
+  to_port           = 80
+
+} */

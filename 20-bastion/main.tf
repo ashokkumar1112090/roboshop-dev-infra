@@ -2,11 +2,11 @@ resource "aws_instance" "bastion" {
   ami           = local.ami_id
   vpc_security_group_ids = [local.bastion_sg_id] # we get key by google for arguments then for this ec2-instance....use below sg id
   instance_type = "t3.micro"     # in vpc line first create sg then next line inst type this is auto dependency
-
+  subnet_id = local.public_subnet_id
   tags = merge (
     local.common_tags,
     {
-      name = "${var.project_name}-${var.environment}-bastion"
+      Name = "${var.project_name}-${var.environment}-bastion"
     }
   )
 }
