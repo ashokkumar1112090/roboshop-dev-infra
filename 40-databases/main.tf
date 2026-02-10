@@ -26,16 +26,16 @@ connection {
 
 #terr copy this file to mongodb server
  #connection need but already took by above cmds
-  provisioner "file" {                      
-        source      = "bootstrap.sh"
-        destination = "/tmp/bootstrap.sh"
+  provisioner "file" {                      #prov file means copy to another server 
+        source      = "bootstarp.sh"
+        destination = "/tmp/bootstarp.sh"
       }
 
-   provisioner "remote-exec" {
+   provisioner "remote-exec" {         #from bastion it will execute plbok in mong ser
     inline = [
-        "chmod +x /tmp/bootstrap.sh",   #execution access
+        "chmod +x /tmp/bootstarp.sh",   #execution access
         # "sudo sh /tmp/bootstrap.sh"
-        "sudo sh /tmp/bootstrap.sh mongodb"
+        "sudo sh /tmp/bootstarp.sh mongodb"
     ]
   }
 }
