@@ -1,0 +1,42 @@
+resource "aws_instance" "mongodb" {
+  ami = local.ami_id
+  vpc_security_group_ids = [local.mongodb_sg_id] # we get key by google for arguments then for this ec2-instance....use below sg id
+  instance_type = "t3.micro"     # in vpc line first create sg then next line inst type this is auto dependency
+  subnet_id = local.database_subnet_id
+  tags = merge (
+    local.common_tags,
+    {
+      Name = "${local.common_name_suffix}-mongodb"  #robo-dev-mongodb
+    }
+  )
+}
+
+resource "terraform_data" "mongodb" {        #null resource called as terr data
+  triggers_replace = [                     #we cant run this in local(pc) bcz private subnet
+                                           #use bastion and configure terr in that server and run this file 
+    aws_instance.mongodb.id
+  ]
+
+connection {
+      type     = "ssh"
+      user     = "ec2-user"
+      password = "DevOps321"
+      host     = aws_instance.mongodb.private_ip
+    }
+
+#terr copy this file to mongodb server
+ #connection need but already took by above cmds
+  provisioner "file" {                      
+        source      = "bootstrap.sh"
+        destination = "/tmp/bootstrap.sh"
+      }
+
+   provisioner "remote-exec" {
+    inline = [
+        "chmod +x /tmp/bootstrap.sh",   #execution access
+        # "sudo sh /tmp/bootstrap.sh"
+        "sudo sh /tmp/bootstrap.sh mongodb"
+    ]
+  }
+}
+

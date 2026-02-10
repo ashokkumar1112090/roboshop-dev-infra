@@ -32,3 +32,15 @@ resource "aws_security_group_rule" "bastion_laptop" {
   protocol       = "tcp"
   to_port           = 22
 }
+
+
+# mongodb accepting traffic from bastion
+resource "aws_security_group_rule" "mongodb_bastion" {
+  type = "ingress"
+  security_group_id = local.mongodb_sg_id   #it should posseses
+  source_security_group_id = local.bastion_sg_id  # incoming from
+  #cidr_ipv4         = aws_vpc.main.cidr_block  #if we give cidr we have to give ip add so
+  from_port         = 22
+  protocol       = "tcp"
+  to_port           = 22
+}
