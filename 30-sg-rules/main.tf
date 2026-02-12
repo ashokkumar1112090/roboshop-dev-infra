@@ -44,3 +44,34 @@ resource "aws_security_group_rule" "mongodb_bastion" {
   protocol       = "tcp"
   to_port           = 22
 }
+
+
+resource "aws_security_group_rule" "redis_bastion" {
+  type = "ingress"
+  security_group_id = local.redis_sg_id   #it should posseses
+  source_security_group_id = local.bastion_sg_id  # incoming from
+  #cidr_ipv4         = aws_vpc.main.cidr_block  #if we give cidr we have to give ip add so
+  from_port         = 22
+  protocol       = "tcp"
+  to_port           = 22
+}
+
+resource "aws_security_group_rule" "mysql_bastion" {
+  type = "ingress"
+  security_group_id = local.mysql_sg_id   #it should posseses
+  source_security_group_id = local.bastion_sg_id  # incoming from
+  #cidr_ipv4         = aws_vpc.main.cidr_block  #if we give cidr we have to give ip add so
+  from_port         = 22
+  protocol       = "tcp"
+  to_port           = 22
+}
+
+resource "aws_security_group_rule" "rabbitmq_bastion" {
+  type = "ingress"
+  security_group_id = local.rabbitmq_sg_id   #it should posseses
+  source_security_group_id = local.bastion_sg_id  # incoming from
+  #cidr_ipv4         = aws_vpc.main.cidr_block  #if we give cidr we have to give ip add so
+  from_port         = 22
+  protocol       = "tcp"
+  to_port           = 22
+}
