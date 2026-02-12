@@ -22,8 +22,8 @@ echo "Deploying Bastion..."
 terraform apply -auto-approve
 
 # 30 - sg-rules
-cd $BASE_PATH/30-databases
-echo "Deploying Databases..."
+cd $BASE_PATH/30-sg-rules
+echo "Deploying 30-sg-rules..."
 terraform apply -auto-approve
 
 echo "RoboShop Dev Infra Deployment of 00-vpc , 10-sg, 20-bastion, 30-sg-rules Completed Successfully!"

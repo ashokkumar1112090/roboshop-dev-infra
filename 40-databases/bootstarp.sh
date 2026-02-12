@@ -34,3 +34,6 @@ else
   git clone $REPO_URL
   cd $REPO_DIR
 fi
+
+#no need of -inven bcz ansible.cfg lo echam
+ansible playbook -e component=$component main.yaml
