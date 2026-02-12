@@ -42,132 +42,132 @@ connection {
 
 
 
-resource "aws_instance" "redis" {
-  ami = local.ami_id
-  vpc_security_group_ids = [local.redis_sg_id] # we get key by google for arguments then for this ec2-instance....use below sg id
-  instance_type = "t3.micro"     # in vpc line first create sg then next line inst type this is auto dependency
-  subnet_id = local.database_subnet_id
-  tags = merge (
-    local.common_tags,
-    {
-      Name = "${local.common_name_suffix}-redis"  #robo-dev-redis
-    }
-  )
-}
+# resource "aws_instance" "redis" {
+#   ami = local.ami_id
+#   vpc_security_group_ids = [local.redis_sg_id] # we get key by google for arguments then for this ec2-instance....use below sg id
+#   instance_type = "t3.micro"     # in vpc line first create sg then next line inst type this is auto dependency
+#   subnet_id = local.database_subnet_id
+#   tags = merge (
+#     local.common_tags,
+#     {
+#       Name = "${local.common_name_suffix}-redis"  #robo-dev-redis
+#     }
+#   )
+# }
 
-resource "terraform_data" "redis" {        #null resource called as terr data
-  triggers_replace = [                     #we cant run this in local(pc) bcz private subnet
-                                           #use bastion and configure terr in that server and run this file 
-    aws_instance.redis.id
-  ]
+# resource "terraform_data" "redis" {        #null resource called as terr data
+#   triggers_replace = [                     #we cant run this in local(pc) bcz private subnet
+#                                            #use bastion and configure terr in that server and run this file 
+#     aws_instance.redis.id
+#   ]
 
-connection {
-      type     = "ssh"
-      user     = "ec2-user"
-      password = "DevOps321"
-      host     = aws_instance.redis.private_ip
-    }
+# connection {
+#       type     = "ssh"
+#       user     = "ec2-user"
+#       password = "DevOps321"
+#       host     = aws_instance.redis.private_ip
+#     }
 
-#terr copy this file to mongodb server
- #connection need but already took by above cmds
-  provisioner "file" {                      #prov file means copy to another server 
-        source      = "bootstarp.sh"
-        destination = "/tmp/bootstarp.sh"
-      }
+# #terr copy this file to mongodb server
+#  #connection need but already took by above cmds
+#   provisioner "file" {                      #prov file means copy to another server 
+#         source      = "bootstarp.sh"
+#         destination = "/tmp/bootstarp.sh"
+#       }
 
-   provisioner "remote-exec" {         #from bastion it will execute plbok in mong ser
-    inline = [
-        "chmod +x /tmp/bootstarp.sh",   #execution access
-        # "sudo sh /tmp/bootstrap.sh"
-        "sudo sh /tmp/bootstarp.sh redis"
-    ]
-  }
-}
-
-
-resource "aws_instance" "mysql" {
-  ami = local.ami_id
-  vpc_security_group_ids = [local.mysql_sg_id] # we get key by google for arguments then for this ec2-instance....use below sg id
-  instance_type = "t3.micro"     # in vpc line first create sg then next line inst type this is auto dependency
-  subnet_id = local.database_subnet_id
-  tags = merge (
-    local.common_tags,
-    {
-      Name = "${local.common_name_suffix}-mysql"  #robo-dev-redis
-    }
-  )
-}
-
-resource "terraform_data" "mysql" {        #null resource called as terr data
-  triggers_replace = [                     #we cant run this in local(pc) bcz private subnet
-                                           #use bastion and configure terr in that server and run this file 
-    aws_instance.mysql.id
-  ]
-
-connection {
-      type     = "ssh"
-      user     = "ec2-user"
-      password = "DevOps321"
-      host     = aws_instance.mysql.private_ip
-    }
-
-#terr copy this file to mongodb server
- #connection need but already took by above cmds
-  provisioner "file" {                      #prov file means copy to another server 
-        source      = "bootstarp.sh"
-        destination = "/tmp/bootstarp.sh"
-      }
-
-   provisioner "remote-exec" {         #from bastion it will execute plbok in mong ser
-    inline = [
-        "chmod +x /tmp/bootstarp.sh",   #execution access
-        # "sudo sh /tmp/bootstrap.sh"
-        "sudo sh /tmp/bootstarp.sh mysql"
-    ]
-  }
-}
+#    provisioner "remote-exec" {         #from bastion it will execute plbok in mong ser
+#     inline = [
+#         "chmod +x /tmp/bootstarp.sh",   #execution access
+#         # "sudo sh /tmp/bootstrap.sh"
+#         "sudo sh /tmp/bootstarp.sh redis"
+#     ]
+#   }
+# }
 
 
-resource "aws_instance" "rabbitmq" {
-  ami = local.ami_id
-  vpc_security_group_ids = [local.rabbitmq_sg_id] # we get key by google for arguments then for this ec2-instance....use below sg id
-  instance_type = "t3.micro"     # in vpc line first create sg then next line inst type this is auto dependency
-  subnet_id = local.database_subnet_id
-  tags = merge (
-    local.common_tags,
-    {
-      Name = "${local.common_name_suffix}-rabbitmq"  #robo-dev-redis
-    }
-  )
-}
+# resource "aws_instance" "mysql" {
+#   ami = local.ami_id
+#   vpc_security_group_ids = [local.mysql_sg_id] # we get key by google for arguments then for this ec2-instance....use below sg id
+#   instance_type = "t3.micro"     # in vpc line first create sg then next line inst type this is auto dependency
+#   subnet_id = local.database_subnet_id
+#   tags = merge (
+#     local.common_tags,
+#     {
+#       Name = "${local.common_name_suffix}-mysql"  #robo-dev-redis
+#     }
+#   )
+# }
 
-resource "terraform_data" "rabbitmq" {        #null resource called as terr data
-  triggers_replace = [                     #we cant run this in local(pc) bcz private subnet
-                                           #use bastion and configure terr in that server and run this file 
-    aws_instance.rabbitmq.id
-  ]
+# resource "terraform_data" "mysql" {        #null resource called as terr data
+#   triggers_replace = [                     #we cant run this in local(pc) bcz private subnet
+#                                            #use bastion and configure terr in that server and run this file 
+#     aws_instance.mysql.id
+#   ]
 
-connection {
-      type     = "ssh"
-      user     = "ec2-user"
-      password = "DevOps321"
-      host     = aws_instance.rabbitmq.private_ip
-    }
+# connection {
+#       type     = "ssh"
+#       user     = "ec2-user"
+#       password = "DevOps321"
+#       host     = aws_instance.mysql.private_ip
+#     }
 
-#terr copy this file to mongodb server
- #connection need but already took by above cmds
-  provisioner "file" {                      #prov file means copy to another server 
-        source      = "bootstarp.sh"
-        destination = "/tmp/bootstarp.sh"
-      }
+# #terr copy this file to mongodb server
+#  #connection need but already took by above cmds
+#   provisioner "file" {                      #prov file means copy to another server 
+#         source      = "bootstarp.sh"
+#         destination = "/tmp/bootstarp.sh"
+#       }
 
-   provisioner "remote-exec" {         #from bastion it will execute plbok in mong ser
-    inline = [
-        "chmod +x /tmp/bootstarp.sh",   #execution access
-        # "sudo sh /tmp/bootstrap.sh"
-        "sudo sh /tmp/bootstarp.sh rabbitmq"
-    ]
-  }
-}
+#    provisioner "remote-exec" {         #from bastion it will execute plbok in mong ser
+#     inline = [
+#         "chmod +x /tmp/bootstarp.sh",   #execution access
+#         # "sudo sh /tmp/bootstrap.sh"
+#         "sudo sh /tmp/bootstarp.sh mysql"
+#     ]
+#   }
+# }
+
+
+# resource "aws_instance" "rabbitmq" {
+#   ami = local.ami_id
+#   vpc_security_group_ids = [local.rabbitmq_sg_id] # we get key by google for arguments then for this ec2-instance....use below sg id
+#   instance_type = "t3.micro"     # in vpc line first create sg then next line inst type this is auto dependency
+#   subnet_id = local.database_subnet_id
+#   tags = merge (
+#     local.common_tags,
+#     {
+#       Name = "${local.common_name_suffix}-rabbitmq"  #robo-dev-redis
+#     }
+#   )
+# }
+
+# resource "terraform_data" "rabbitmq" {        #null resource called as terr data
+#   triggers_replace = [                     #we cant run this in local(pc) bcz private subnet
+#                                            #use bastion and configure terr in that server and run this file 
+#     aws_instance.rabbitmq.id
+#   ]
+
+# connection {
+#       type     = "ssh"
+#       user     = "ec2-user"
+#       password = "DevOps321"
+#       host     = aws_instance.rabbitmq.private_ip
+#     }
+
+# #terr copy this file to mongodb server
+#  #connection need but already took by above cmds
+#   provisioner "file" {                      #prov file means copy to another server 
+#         source      = "bootstarp.sh"
+#         destination = "/tmp/bootstarp.sh"
+#       }
+
+#    provisioner "remote-exec" {         #from bastion it will execute plbok in mong ser
+#     inline = [
+#         "chmod +x /tmp/bootstarp.sh",   #execution access
+#         # "sudo sh /tmp/bootstrap.sh"
+#         "sudo sh /tmp/bootstarp.sh rabbitmq"
+#     ]
+#   }
+# }
 
 
