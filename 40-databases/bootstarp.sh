@@ -1,7 +1,8 @@
 #1/bin/bash          #shell-scripting concept
 
 
-component = $1      #parameters passed bcz hardcoded for mongodb so 
+component=$1
+environment=$2     #parameters passed bcz hardcoded for mongodb so 
 yum install ansible -y
 # ansible-pull -U https://github.com/ashokkumar1112090/ansible-roboshop-roles.tf.git \
 #   -e component=$component \
@@ -17,7 +18,7 @@ yum install ansible -y
 REPO_URL=https://github.com/ashokkumar1112090/ansible-roboshop-roles.tf.git
 REPO_DIR=/opt/roboshop/ansible        #cloning to this directory
 ANSIBLE_DIR=ansible-roboshop-roles.tf  #after cloning
-component=$1
+
 
 mkdir -p $REPO_DIR
 mkdir -P /var/log
@@ -36,4 +37,4 @@ else
 fi
 
 #no need of -inven bcz ansible.cfg lo echam
-ansible playbook -e component=$component main.yaml
+ansible-playbook -e component=$component -e env=$environment main.yaml
