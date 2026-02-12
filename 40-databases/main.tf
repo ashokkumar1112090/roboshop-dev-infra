@@ -77,6 +77,7 @@ connection {
 
    provisioner "remote-exec" {         #from bastion it will execute plbok in mong ser
     inline = [
+        "set -x",
         "chmod +x /tmp/bootstarp.sh",   #execution access
         # "sudo sh /tmp/bootstrap.sh"
         "sudo sh /tmp/bootstarp.sh redis dev"
