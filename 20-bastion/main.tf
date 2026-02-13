@@ -3,6 +3,8 @@ resource "aws_instance" "bastion" {
   vpc_security_group_ids = [local.bastion_sg_id] # we get key by google for arguments then for this ec2-instance....use below sg id
   instance_type = "t3.micro"     # in vpc line first create sg then next line inst type this is auto dependency
   subnet_id = local.public_subnet_id
+  iam_instance_profile = aws_iam_instance_profile.bastion.name
+
   tags = merge (
     local.common_tags,
     {
@@ -10,6 +12,13 @@ resource "aws_instance" "bastion" {
     }
   )
 }
+
+resource "aws_iam_instance_profile" "bastion" {
+  name = "bastion"
+  role = "BastionTerraformAdmin"  #created role in IAM in aws manually
+                             #we create role using terr but takes time try next time
+}                            #no need of aws config and terr install next time
+
 
 /* resource "aws_security_group" "allow-all" {
   name   = "allow-all"
