@@ -33,7 +33,7 @@ if [ -d $ANSIBLE_DIR ]; then
    git pull
 else
   git clone $REPO_URL
-  cd $REPO_DIR
+  cd $ANSIBLE_DIR
 fi
 
 #no need of -inven bcz ansible.cfg lo echam
