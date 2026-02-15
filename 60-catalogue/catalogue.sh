@@ -36,5 +36,6 @@ else
   cd $ANSIBLE_DIR
 fi
 
+echo "environment : $2" #just to recheck msg in output while executng
 #no need of -inven bcz ansible.cfg lo echam
 ansible-playbook -e component=$component -e env=$environment main.yaml
