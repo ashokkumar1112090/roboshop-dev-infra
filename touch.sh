@@ -32,3 +32,4 @@ echo "sg-rules completed"
  
 
 echo "RoboShop Dev Infra Deployment of 00-vpc , 10-sg, 20-bastion, 30-sg-rules,  Completed Successfully!"
+echo "in bastion run 60catalogue 40-db"
