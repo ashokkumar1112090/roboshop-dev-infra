@@ -43,4 +43,3 @@ terraform destroy -auto-approve
 
 
 echo "Destroying  40-Databases...30-sg-rules..20-bastion...10-sg...00-vpc...destroyed...."
-ech

@@ -1,4 +1,5 @@
 #!/bin/bash
+chmod +x setup_terraform.sh
 
 # Exit if any command fails
 set -e
