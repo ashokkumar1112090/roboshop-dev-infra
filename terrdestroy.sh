@@ -43,3 +43,26 @@ terraform destroy -auto-approve
 
 
 echo "Destroying  40-Databases...30-sg-rules..20-bastion...10-sg...00-vpc...destroyed...."
+
+
+# 🔥 Combined Root Cause Summary (Your Case)
+
+# Most likely scenario:
+
+# You ran terraform apply
+
+# It got interrupted OR network dropped
+
+# Lock file stayed in S3
+
+# You switched folders (10-sg, 20-bastion, 30-sg-rules)
+
+# Backend keys differed
+
+# You tried unlocking from wrong module
+
+# Versioning in S3 caused 412 error
+
+# Terraform local metadata was stale
+
+# So multiple small issues combined created repeated lock error
