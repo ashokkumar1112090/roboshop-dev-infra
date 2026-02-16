@@ -16,6 +16,7 @@ if [ ! -d ".terraform" ]; then
     terraform init -input=false
 fi
 terraform destroy -auto-approve
+echo "30-sg rules completed"
 
 cd $BASE_PATH/20-bastion
 if [ ! -d ".terraform" ]; then
@@ -23,6 +24,7 @@ if [ ! -d ".terraform" ]; then
     terraform init -input=false
 fi
 terraform destroy -auto-approve
+echo "20-bastion completed destroyed"
 
 cd $BASE_PATH/10-sg
 if [ ! -d ".terraform" ]; then
@@ -30,6 +32,7 @@ if [ ! -d ".terraform" ]; then
     terraform init -input=false
 fi
 terraform destroy -auto-approve
+echo "10-sg destroyed"
 
 cd $BASE_PATH/00-vpc
 if [ ! -d ".terraform" ]; then
@@ -37,6 +40,7 @@ if [ ! -d ".terraform" ]; then
     terraform init -input=false
 fi
 terraform destroy -auto-approve
+
 
 echo "Destroying  40-Databases...30-sg-rules..20-bastion...10-sg...00-vpc...destroyed...."
 ech

@@ -31,7 +31,7 @@ connection {
  #connection need but already took by above cmds
   provisioner "file" {                      #prov file means copy to another server 
         source      = "catalogue.sh"
-        destination = "/tmp/catalogue.shh"
+        destination = "/tmp/catalogue.sh"
       }
 
    provisioner "remote-exec" {         #from bastion it will execute plbok in mong ser
