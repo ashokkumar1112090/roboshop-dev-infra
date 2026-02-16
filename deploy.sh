@@ -9,17 +9,6 @@ if [ "$confirm" != "yes" ]; then
   exit 1
 fi
 
-
-# 40 - Databases
-cd $BASE_PATH/40-databases
-
-if [ ! -d ".terraform" ]; then
-    echo "Initializing Terraform..."
-    terraform init -input=false
-  fi
-
-terraform destroy -auto-approve
-
 cd $BASE_PATH/30-sg-rules
 
 if [ ! -d ".terraform" ]; then
