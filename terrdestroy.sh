@@ -3,14 +3,56 @@
 set -e
 BASE_PATH="/c/devops/daws-86s/repos/roboshop-dev-infra"
 
-read -p "Are you sure destroyed   40-DATABASES IN BASTION? (yes/no): " confirm
+read -p "Are you sure destroying of total roboshop-dev-infra? (yes/no): " confirm
 if [ "$confirm" != "yes" ]; then
   echo "Destroy cancelled."
   exit 1
 fi
 
-cd $BASE_PATH/30-sg-rules
+cd $BASE_PATH/80-frontend-alb
+echo "destroying 80-frontend-alb"
+if [ ! -d ".terraform" ]; then
+  echo "Initializing Terraform..."
+    terraform init -input=false
+fi
+terraform destroy -auto-approve
+echo "80-frontend-alb completed destroyed"
 
+cd $BASE_PATH/70-acm
+echo "destroying 70-acm"
+if [ ! -d ".terraform" ]; then
+  echo "Initializing Terraform..."
+    terraform init -input=false
+fi
+terraform destroy -auto-approve
+echo "70-acm completed destroyed"
+
+
+read -p "Are you sure destroyed 60-catalogue and IN BASTION? (yes/no): " confirm
+if [ "$confirm" != "yes" ]; then
+  echo "Destroy cancelled."
+  exit 1
+fi
+
+cd $BASE_PATH/50-backend-alb
+echo "destroying 50-backend-alb"
+if [ ! -d ".terraform" ]; then
+  techo "Initializing Terraform..."
+    terraform init -input=false
+fi
+terraform destroy -auto-approve
+echo "50-backend-alb completed"
+
+read -p "Are you sure destroyed 40-databases and IN BASTION? (yes/no): " confirm
+if [ "$confirm" != "yes" ]; then
+  echo "Destroy cancelled."
+  exit 1
+fi
+
+
+
+cd $BASE_PATH/30-sg-rules
+echo "destroying 30-sgrules"
 if [ ! -d ".terraform" ]; then
   techo "Initializing Terraform..."
     terraform init -input=false
