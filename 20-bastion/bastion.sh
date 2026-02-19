@@ -26,3 +26,12 @@ chown ec2-user:ec2-user -R roboshop-dev-infra
 cd roboshop-dev-infra/40-databases
 terraform init
 terraform apply -auto-approve
+
+read -p "Are you sure 50-backend-alb launched in  your pc  (yes/no): " confirm
+if [ "$confirm" != "yes" ]; then
+  echo " after 40-db enex 50-be alb next 60-cat"
+  exit 1
+fi
+
+
+

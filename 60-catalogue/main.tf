@@ -193,11 +193,13 @@ resource "aws_lb_listener_rule" "catalogue" {
 
   condition {
     host_header {
-      values = ["catalogue.backend-alb-${var.environment}.${var.domain_name}"]
+      values = ["catalogue.backend-alb-${var.environment}.${var.domain_name}"] #host path
     }
   }
 }
 
+
+#to delete ec2 inst that created to take ami
 resource "terraform_data" "catalogue_local" {
   triggers_replace = [
     aws_instance.catalogue.id
