@@ -17,14 +17,14 @@ resource "terraform_data" "mongodb" {        #null resource called as terr data
     aws_instance.mongodb.id
   ]
 
-connection {
+ connection {
       type     = "ssh"
       user     = "ec2-user"
       password = "DevOps321"
       host     = aws_instance.mongodb.private_ip
     }
 
-#terr copy this file to mongodb server
+ #terr copy this file to mongodb server
  #connection need but already took by above cmds
   provisioner "file" {                      #prov file means copy to another server 
         source      = "bootstarp.sh"
@@ -61,14 +61,14 @@ resource "terraform_data" "redis" {        #null resource called as terr data
     aws_instance.redis.id
   ]
 
-connection {
+ connection {
       type     = "ssh"
       user     = "ec2-user"
       password = "DevOps321"
       host     = aws_instance.redis.private_ip
     }
 
-#terr copy this file to mongodb server
+ #terr copy this file to mongodb server
  #connection need but already took by above cmds
   provisioner "file" {                      #prov file means copy to another server 
         source      = "bootstarp.sh"
@@ -112,14 +112,14 @@ resource "terraform_data" "mysql" {        #null resource called as terr data
     aws_instance.mysql.id
   ]
 
-connection {
+ connection {
       type     = "ssh"
       user     = "ec2-user"
       password = "DevOps321"
       host     = aws_instance.mysql.private_ip
     }
 
-#terr copy this file to mongodb server
+ #terr copy this file to mongodb server
  #connection need but already took by above cmds
   provisioner "file" {                      #prov file means copy to another server 
         source      = "bootstarp.sh"
@@ -155,14 +155,14 @@ resource "terraform_data" "rabbitmq" {        #null resource called as terr data
     aws_instance.rabbitmq.id
   ]
 
-connection {
+ connection {
       type     = "ssh"
       user     = "ec2-user"
       password = "DevOps321"
       host     = aws_instance.rabbitmq.private_ip
     }
 
-#terr copy this file to mongodb server
+ #terr copy this file to mongodb server
  #connection need but already took by above cmds
   provisioner "file" {                      #prov file means copy to another server 
         source      = "bootstarp.sh"

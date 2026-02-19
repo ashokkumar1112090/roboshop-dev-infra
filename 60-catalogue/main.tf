@@ -20,14 +20,14 @@ resource "terraform_data" "catalogue" {        #null resource called as terr dat
     aws_instance.catalogue.id            #whenever it shows cat.id ittriggers to connect
   ]                                        
 
-connection {
+ connection {
       type     = "ssh"
       user     = "ec2-user"
       password = "DevOps321"
       host     = aws_instance.catalogue.private_ip
     }
 
-#terr copy this file to mongodb server
+ #terr copy this file to mongodb server
  #connection need but already took by above cmds
   provisioner "file" {                      #prov file means copy to another server 
         source      = "catalogue.sh"
