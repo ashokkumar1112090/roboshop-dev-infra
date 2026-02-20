@@ -27,15 +27,15 @@ resource "terraform_data" "mongodb" {        #null resource called as terr data
  #terr copy this file to mongodb server
  #connection need but already took by above cmds
   provisioner "file" {                      #prov file means copy to another server 
-        source      = "bootstarp.sh"
-        destination = "/tmp/bootstarp.sh"
+        source      = "bootstrap.sh"
+        destination = "/tmp/bootstrap.sh"
       }
 
    provisioner "remote-exec" {         #from bastion it will execute plbok in mong ser
     inline = [
-        "chmod +x /tmp/bootstarp.sh",   #execution access
+        "chmod +x /tmp/bootstrap.sh",   #execution access
         # "sudo sh /tmp/bootstrap.sh"
-        "sudo sh /tmp/bootstarp.sh mongodb dev "
+        "sudo sh /tmp/bootstrap.sh mongodb dev "
     ]
   }
 }
