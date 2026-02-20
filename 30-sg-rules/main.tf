@@ -345,6 +345,8 @@ resource "aws_security_group_rule" "open_vpn_1194" {
 #   to_port           = 8080
 # }
 
+
+#sg loops given check this one
 resource "aws_security_group_rule" "components_vpn" {
   for_each = local.vpn_ingress_rules
   type              = "ingress"
