@@ -1,4 +1,5 @@
 #!/bin/bash
+# for i in 90-components/ 40-databases/; do cd $i; terraform destroy -auto-approve; cd .. ;done
 
 set -e   # stop script if any error comes
 
@@ -43,13 +44,13 @@ fi
 cd $BASE_PATH/50-backend-alb
 echo "Deploying 50-backend-alb.."
 terraform apply -auto-approve
-echo "50-backend-alb destroyed completed"
+echo "50-backend-alb destroyed completed 60-catalogue skip"
 
-read -p "Are you sure created  60-catalogue in bastion? (yes/no): " confirm
-if [ "$confirm" != "yes" ]; then
-  echo "apply cancelled."
-  exit 1
-fi
+# read -p "Are you sure created  60-catalogue in bastion? (yes/no): " confirm
+# if [ "$confirm" != "yes" ]; then
+#   echo "apply cancelled."
+#   exit 1
+# fi
 
 cd $BASE_PATH/70-acm
 echo "Deploying 70-acm.."
@@ -60,4 +61,15 @@ cd $BASE_PATH/80-frontend-alb
 echo "Deploying 80-frontend-alb.."
 terraform apply -auto-approve
 echo "80-frontend-alb apply completed"
+
+read -p "Are you sure created  90-components in bastion? (yes/no): " confirm
+if [ "$confirm" != "yes" ]; then
+  echo "apply cancelled."
+  exit 1
+fi
+
+# cd $BASE_PATH/90-components
+# echo "Deploying 90-components.."
+# terraform apply -auto-approve
+# echo "90-components apply completed"
 
