@@ -9,7 +9,7 @@ variable "rule_priority" {
 variable "components" {
     default = {
         catalogue = {
-            rule_priority = 10
+            rule_priority = 10  #ALB checks rules from lowest number to highest number.
             #if you want any changes for cat you can add here like inst type
         }
         user = {
