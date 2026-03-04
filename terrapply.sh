@@ -1,6 +1,6 @@
 #!/bin/bash
 # for i in 90-components/ 40-databases/; do cd $i; terraform destroy -auto-approve; cd .. ;done
-
+#for i in 40-databases/90-components/; do cd $i; terraform apply -auto-approve; cd .. ;done
 set -e   # stop script if any error comes
 
 BASE_PATH="/c/devops/daws-86s/repos/roboshop-dev-infra"
@@ -35,11 +35,11 @@ echo "sg-rules completed"
 echo "RoboShop Dev Infra Deployment of 00-vpc , 10-sg, 20-bastion, 30-sg-rules,  Completed Successfully!"
 echo "in bastion run 60-catalogue 40-db"
 
-read -p "Are you sure created 40-databases in bastion? (yes/no): " confirm
-if [ "$confirm" != "yes" ]; then
-  echo "apply cancelled."
-  exit 1
-fi
+# read -p "Are you sure created 40-databases in bastion? (yes/no): " confirm
+# if [ "$confirm" != "yes" ]; then
+#   echo "apply cancelled."
+#   exit 1
+# fi
 
 cd $BASE_PATH/50-backend-alb
 echo "Deploying 50-backend-alb.."

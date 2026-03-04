@@ -1,8 +1,10 @@
+
 resource "aws_instance" "openvpn" {
     ami = local.ami_id
     instance_type = "t3.micro"
     vpc_security_group_ids = [local.openvpn_sg_id]
     subnet_id = local.public_subnet_id
+    key_name = "daws-86s"
     user_data = file("vpn.sh")
     
     tags = merge (

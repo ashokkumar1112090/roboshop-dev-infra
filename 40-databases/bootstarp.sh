@@ -1,5 +1,7 @@
-#1/bin/bash          #shell-scripting concept
+#!/bin/bash          #shell-scripting concept
+set -e
 
+#for i in 40-databases/90-components/; do cd $i; terraform apply -auto-approve; cd .. ;done
 
 component=$1
 environment=$2     #parameters passed bcz hardcoded for mongodb so 
@@ -21,7 +23,7 @@ ANSIBLE_DIR=ansible-roboshop-roles.tf  #after cloning
 
 
 mkdir -p $REPO_DIR
-mkdir -P /var/log
+mkdir -p /var/log
 touch ansible.log
 
 cd $REPO_DIR
@@ -37,4 +39,4 @@ else
 fi
 
 #no need of -inven bcz ansible.cfg lo echam
-ansible-playbook -e component=$component -e env=$environment main.yaml
+ansible-playbook -e component=$component -e env=$environment main.yaml >> /var/log/ansible.log 2>&1

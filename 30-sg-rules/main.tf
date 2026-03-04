@@ -323,7 +323,7 @@ resource "aws_security_group_rule" "open_vpn_1194" {
   security_group_id = local.open_vpn_sg_id
   cidr_blocks = ["0.0.0.0/0"]
   from_port         = 1194
-  protocol          = "tcp"
+  protocol          =  "udp"
   to_port           = 1194
 }
 
